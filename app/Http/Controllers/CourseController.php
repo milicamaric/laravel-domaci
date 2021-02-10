@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class CourseController extends Controller
 {
@@ -14,7 +17,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+        return CourseResource::collection($courses);
     }
 
     /**
@@ -25,7 +29,11 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->only([Course::getFillableRequest()]);
+        $course = new Course($attributes);
+        $saved = $course->save();
+        if ($saved) return new CourseResource($course);
+        else throw new UnprocessableEntityHttpException();
     }
 
     /**
@@ -36,7 +44,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        return new CourseResource($course);
     }
 
     /**
@@ -48,7 +56,8 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        return new CourseResource($course);
+        // @TODO: impl update
     }
 
     /**
@@ -59,6 +68,8 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $deleted = $course->delete();
+        if ($deleted) return new Response('', 204);
+        else throw new UnprocessableEntityHttpException();
     }
 }

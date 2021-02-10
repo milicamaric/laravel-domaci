@@ -23,7 +23,20 @@ class Professor extends Model
         'email'
     ];
 
-    public function courses() {
+    public static function getFillableRequest()
+    {
+        return [
+            'firstName',
+            'lastName',
+            'birthdayDate',
+            'joinDate',
+            'phone',
+            'email'
+        ];
+    }
+
+    public function courses()
+    {
         return $this->belongsToMany(Course::class);
     }
 }

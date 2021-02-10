@@ -9,11 +9,32 @@ class Course extends Model
 {
     use HasFactory;
 
-    public function students() {
-        return $this->belongsToMany(Student::class);
+    protected $fillable = [
+        'name',
+        'start_date',
+        'classroom',
+        'length',
+        'schedule'
+    ];
+
+    public static function getFillableRequest()
+    {
+        return [
+            'name',
+            'startDate',
+            'classroom',
+            'length',
+            'schedule'
+        ];
     }
 
-    public function professors() {
-        return $this->belongsToMany(Professor::class);
+    public function students()
+    {
+        return $this->belongsToMany(Student::class)->withTimestamps();
+    }
+
+    public function professor()
+    {
+        return $this->belongsToMany(Professor::class)->withTimestamps();
     }
 }

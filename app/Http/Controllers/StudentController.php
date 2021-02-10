@@ -16,7 +16,6 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
-
         return StudentResource::collection($students);
     }
 
@@ -56,6 +55,7 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         return new StudentResource($student);
+        // @TODO: impl update
         /* $attributes = $request->only([Student::getFillableRequest()]); */
         /* $student = new Student($attributes); */
         /* $saved = $student->save(); */

@@ -22,7 +22,12 @@ class ProfessorFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'birthday_date' => $this->faker->dateTimeBetween('-80 years', '-30 years'),
+            'join_date' => $this->faker->dateTimeBetween('-10 years', '-1 years'),
+            'phone' => $this->faker->phoneNumber(),
+            'email' => $this->faker->safeEmail()
         ];
     }
 }

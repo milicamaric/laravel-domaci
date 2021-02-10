@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProfessorResource;
 use App\Models\Professor;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class ProfessorController extends Controller
 {
@@ -14,7 +17,9 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        //
+        $professors = Professor::all();
+
+        return ProfessorResource::collection($professors);
     }
 
     /**
@@ -25,7 +30,11 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->only([Professor::getFillableRequest()]);
+        $professor = new Professor($attributes);
+        $saved = $professor->save();
+        if ($saved) return new ProfessorResource($professor);
+        else throw new UnprocessableEntityHttpException();
     }
 
     /**
@@ -36,7 +45,7 @@ class ProfessorController extends Controller
      */
     public function show(Professor $professor)
     {
-        return $professor;
+        return new ProfessorResource($professor);
     }
 
     /**
@@ -48,7 +57,8 @@ class ProfessorController extends Controller
      */
     public function update(Request $request, Professor $professor)
     {
-        //
+        return new ProfessorResource($professor);
+        // @TODO: impl update
     }
 
     /**
@@ -59,6 +69,8 @@ class ProfessorController extends Controller
      */
     public function destroy(Professor $professor)
     {
-        //
+        $deleted = $professor->delete();
+        if ($deleted) return new Response('', 204);
+        else throw new UnprocessableEntityHttpException();
     }
 }
