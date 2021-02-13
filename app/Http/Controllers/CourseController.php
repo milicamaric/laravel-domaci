@@ -10,6 +10,16 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class CourseController extends Controller
 {
+
+    public function list()
+    {
+        // dohvati sve kurseve
+        $courses = Course::all();
+
+        // primer vracanja stranice sa podacima (kontraprimer u `/routes/web.php`)
+        return view('list', $courses);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +45,7 @@ class CourseController extends Controller
         // napravi novi kurs na osnovu svih polja iz HTTP zahteva
         $course = new Course($request->all());
         // snimi novi kurs
-        $saved = $course->save();
+        $course->save();
 
         // dodaj profesora u many-to-many tabelu
         $course->professor()->sync($request->professor);
@@ -68,7 +78,7 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         // azuriraj kurs na osnovu svih polja iz HTTP zahteva
-        $saved = $course->update($request->all());
+        $course->update($request->all());
 
         // izmeni profesora u many-to-many tabeli
         $course->professor()->sync($request->professor);
