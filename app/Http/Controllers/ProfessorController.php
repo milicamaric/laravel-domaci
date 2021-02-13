@@ -30,8 +30,7 @@ class ProfessorController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = $request->only([Professor::getFillableRequest()]);
-        $professor = new Professor($attributes);
+        $professor = new Professor($request->all());
         $saved = $professor->save();
         if ($saved) return new ProfessorResource($professor);
         else throw new UnprocessableEntityHttpException();
@@ -57,8 +56,8 @@ class ProfessorController extends Controller
      */
     public function update(Request $request, Professor $professor)
     {
+        $professor->update($request->all());
         return new ProfessorResource($professor);
-        // @TODO: impl update
     }
 
     /**

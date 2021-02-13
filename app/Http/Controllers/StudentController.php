@@ -27,8 +27,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = $request->only([Student::getFillableRequest()]);
-        $student = new Student($attributes);
+        $student = new Student($request->all());
         $saved = $student->save();
         if ($saved) return new StudentResource($student);
         else throw new UnprocessableEntityHttpException();
@@ -54,11 +53,8 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        $student->update($request->all());
         return new StudentResource($student);
-        // @TODO: impl update
-        /* $attributes = $request->only([Student::getFillableRequest()]); */
-        /* $student = new Student($attributes); */
-        /* $saved = $student->save(); */
     }
 
     /**

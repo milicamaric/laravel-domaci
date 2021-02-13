@@ -17,7 +17,10 @@ class CourseController extends Controller
      */
     public function index()
     {
+        // dohvati sve kurseve
         $courses = Course::all();
+
+        // zapakuj u kolekciju (niz) za HTTP odgovor
         return CourseResource::collection($courses);
     }
 
@@ -29,11 +32,18 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = $request->only([Course::getFillableRequest()]);
-        $course = new Course($attributes);
+        // napravi novi kurs na osnovu svih polja iz HTTP zahteva
+        $course = new Course($request->all());
+        // snimi novi kurs
         $saved = $course->save();
-        if ($saved) return new CourseResource($course);
-        else throw new UnprocessableEntityHttpException();
+
+        // dodaj profesora u many-to-many tabelu
+        $course->professor()->sync($request->professor);
+        // dodaj ucenike u many-to-many tabelu
+        $course->students()->sync($request->students);
+
+        // zapakuj u JSON HTTP odgovor
+        return new CourseResource($course);
     }
 
     /**
@@ -44,6 +54,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        // zapakuj u JSON HTTP odgovor
         return new CourseResource($course);
     }
 
@@ -56,8 +67,16 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
+        // azuriraj kurs na osnovu svih polja iz HTTP zahteva
+        $saved = $course->update($request->all());
+
+        // izmeni profesora u many-to-many tabeli
+        $course->professor()->sync($request->professor);
+        // izmeni ucenike (niz) u many-to-many tabeli
+        $course->students()->sync($request->students);
+
+        // zapa u JSON HTTP odgovor
         return new CourseResource($course);
-        // @TODO: impl update
     }
 
     /**
@@ -68,8 +87,11 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
+        // izbrisi kurs
         $deleted = $course->delete();
+        // ako je uspesno izbrisan vrati HTTP prazan odgovor 204 (nema nista)
         if ($deleted) return new Response('', 204);
+        // ako je neuspesno baci gresku
         else throw new UnprocessableEntityHttpException();
     }
 }

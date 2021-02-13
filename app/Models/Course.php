@@ -17,17 +17,6 @@ class Course extends Model
         'schedule'
     ];
 
-    public static function getFillableRequest()
-    {
-        return [
-            'name',
-            'startDate',
-            'classroom',
-            'length',
-            'schedule'
-        ];
-    }
-
     public function students()
     {
         return $this->belongsToMany(Student::class)->withTimestamps();
