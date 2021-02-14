@@ -11,3 +11,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# rebuilt by `npm run dev`
+/public/js
+/public/css
