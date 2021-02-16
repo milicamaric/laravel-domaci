@@ -16,25 +16,21 @@
   <tr>
     <th>id</th>
     <th>Name</th> 
-    <th>Last Name</th>
-    <th>Birthday</th>
-    <th>Join date</th>
-    <th>Phone</th>
-    <th>Email</th>
-    <th>Courses</th>
+    <th>Classroom</th>
+    <th>Length</th>
+    <th>Schedule</th>
+    <th>Professor</th>
   </tr>
   </thead>
   <tbody>
-    @foreach ($professors->all() as $professor)
+    @foreach ($courses->all() as $course)
     <tr>
-      <td>{{$professor['id']}}</td>
-      <td>{{$professor['first_name']}}</td>
-      <td>{{$professor['last_name']}}</td>
-      <td>{{$professor['birthday_date']}}</td>
-      <td>{{$professor['join_date']}}</td>
-      <td>{{$professor['phone']}}</td>
-      <td>{{$professor['email']}}</td>
-      <td>{{$professor['courses'][0]['name']}}</td>
+      <td>{{$course['id']}}</td>
+      <td>{{$course['name']}}</td>
+      <td>{{$course['classroom']}}</td>
+      <td>{{$course['length']}}</td>
+      <td>{{$course['schedule']}}</td>
+      <td>{{$course['professor'][0]['first_name'] . ' ' . $course['professor'][0]['last_name']}}</td>
     </tr>
     @endforeach
   </tbody>

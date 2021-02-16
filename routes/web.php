@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get(
-    '/courses/list',
+    '/courses',
     [CourseController::class, 'list']
 )->name('list');
 

@@ -21,10 +21,15 @@ class CourseFactory extends Factory
      */
     public function definition()
     {
-        $schedule_len = $this->faker->numberBetween(0, 5);
-        $schedule = '';
+        $days = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri');
+        // baci kocku za broj dana u nedelji kada se drzi cas
+        $schedule_len = $this->faker->numberBetween(1, 5);
+        // inicijalizuj promenljivu
+        $schedule = array();
         for ($i = 0; $i < $schedule_len; $i++) {
-            $schedule .= $this->faker->dayOfWeek() . ', ';
+            $random = random_int(1, count($days)) - 1;
+            $chosen = array_splice($days, $random, 1);
+            array_push($schedule, array_pop($chosen));
         }
 
         return [
@@ -32,7 +37,7 @@ class CourseFactory extends Factory
             'start_date' => $this->faker->dateTimeBetween('-1 years', 'now'),
             'classroom' => $this->faker->bs(),
             'length' => $this->faker->numberBetween(4, 56) . ' weeks',
-            'schedule' => $schedule
+            'schedule' => implode(", ", $schedule)
         ];
     }
 }

@@ -18,16 +18,16 @@ class CourseSeeder extends Seeder
         Course::factory()
             ->count(10)
             ->state(new Sequence(
-                ['name' => 'guitar1'],
-                ['name' => 'guitar2'],
-                ['name' => 'guitar3'],
-                ['name' => 'drums1'],
-                ['name' => 'drums2'],
-                ['name' => 'drums3'],
-                ['name' => 'piano1'],
-                ['name' => 'piano2'],
-                ['name' => 'piano3'],
-                ['name' => 'theory1'],
+                ['classroom' => 'black',  'name' => 'guitar1'],
+                ['classroom' => 'red',    'name' => 'guitar2'],
+                ['classroom' => 'blue',   'name' => 'guitar3'],
+                ['classroom' => 'white',  'name' => 'drums1'],
+                ['classroom' => 'green',  'name' => 'drums2'],
+                ['classroom' => 'gray',   'name' => 'drums3'],
+                ['classroom' => 'yellow', 'name' => 'piano1'],
+                ['classroom' => 'purple', 'name' => 'piano2'],
+                ['classroom' => 'pink',   'name' => 'piano3'],
+                ['classroom' => 'brown',  'name' => 'theory1'],
             ))
             ->hasProfessor()
             ->hasStudents(30)
