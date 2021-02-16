@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +26,14 @@ Route::get(
 )->name('list');
 
 // primer vracanja stranice bez podataka (AJAX) (kontraprimer u CourseController.list)
-Route::view('/courses/list2/', 'list2');
+//Route::view('/courses/professors/', 'professors');
+
+Route::get(
+    '/professors',
+    [ProfessorController::class, 'list']
+)->name('professors');
+
+Route::get(
+    '/students',
+    [StudentController::class, 'list']
+)->name('students');

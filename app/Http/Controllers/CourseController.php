@@ -15,9 +15,10 @@ class CourseController extends Controller
     {
         // dohvati sve kurseve
         $courses = Course::all();
+    
 
         // primer vracanja stranice sa podacima (kontraprimer u `/routes/web.php`)
-        return view('list', $courses);
+        return view(('list'),compact('courses'));
     }
 
     /**
@@ -32,6 +33,7 @@ class CourseController extends Controller
 
         // zapakuj u kolekciju (niz) za HTTP odgovor
         return CourseResource::collection($courses);
+      
     }
 
     /**

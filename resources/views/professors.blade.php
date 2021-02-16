@@ -18,20 +18,25 @@
 <thead class="thead-dark">
   <tr>
     <th>id</th>
-    <th>name</th> 
-    <th>classroom</th>
-    <th>length</th>
-    <th>schedule</th>
+    <th>Name</th> 
+    <th>Last Name</th>
+    <th>Birthday</th>
+    <th>Join date</th>
+    <th>Phone</th>
+    <th>Email</th>
   </tr>
   </thead>
   <tbody>
-  @foreach ($courses->all() as $course)
+  @foreach ($professors->all() as $professor)
   <tr>
-    <td>{{$course['id']}}</td>
-    <td>{{$course['name']}}</td>
-    <td>{{$course['classroom']}}</td>
-    <td>{{$course['length']}}</td>
-    <td>{{$course['schedule']}}</td>
+    <td>{{$professor['id']}}</td>
+    <td>{{$professor['first_name']}}</td>
+    <td>{{$professor['last_name']}}</td>
+    <td>{{$professor['birthday']}}</td>
+    <td>{{$professor['join_date']}}</td>
+    <td>{{$professor['phone']}}</td>
+    <td>{{$professor['email']}}</td>
+
   </tr>
 </tbody>
   <tr>
@@ -40,3 +45,4 @@
 </div>
 </body>
 </html>
+

@@ -15,11 +15,20 @@ class ProfessorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function list()
+    {
+
+        $professors = Professor::all();
+        return view(('professors'),compact('professors'));
+
+    }
     public function index()
     {
         $professors = Professor::all();
 
         return ProfessorResource::collection($professors);
+        
     }
 
     /**
